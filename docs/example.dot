@@ -1,0 +1,43 @@
+digraph example {
+    node [ shape = record ];
+    
+	Application [label="WSGI Application"];
+	Templating [label="Templating Middleware\n(Common Template Interface)"];
+	Widgets [label="Widgets\n(ToscaWidgets)"];
+	Sessions [label="Session Middleware\n(Beaker Sessions)"];
+	Database [label="Transactional Database"];
+	Authentication [label="Authentication\nAuthorization"];
+	Internationalization [label="Internationalization"];
+	Debugging [label="Debugging\nReporting"];
+	Static [label="Static Files"];
+	
+	Application -> Templating;
+	Application -> Widgets;
+	Application -> Sessions;
+	Application -> Database;
+	Application -> Internationalization;
+	Application -> Debugging;
+	Application -> Static;
+	
+	Templating -> Widgets [arrowhead=odot label=all];
+	Templating -> Internationalization [arrowhead=empty];
+	
+	Widgets -> Sessions [arrowhead=empty];
+	Widgets -> Database [arrowhead=empty];
+	Widgets -> Authentication [arrowhead=empty];
+	Widgets -> Internationalization [arrowhead=empty];
+	
+	Sessions -> Database [arrowhead=empty];
+	
+	Authentication -> Database [arrowhead=empty];
+	Authentication -> Sessions;
+	Authentication -> Internationalization [arrowhead=empty];
+	
+	Internationalization -> Sessions [arrowhead=empty];
+	
+	Database -> Debugging [arrowtail=odot arrowhead=none label=all];
+	Debugging -> Static [arrowtail=odot arrowhead=none];
+	Database -> Static [arrowtail=odot arrowhead=none label=all];
+	
+	[label="Legend:\nFilled arrows depict required ('needs') dependancies.\nHollow arrows depict optional ('uses') dependancies.\nHollow circles indicate a 'before' or 'after' explicit order dependancy."];
+}
