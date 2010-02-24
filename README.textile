@@ -1,0 +1,12 @@
+h1. Middleware Dependancy Graphing
+
+Often there is a need for the ability to define that one layer of middleware consumes the resources offered by another.  For example, authentication mechanisms may require access to a global session system, transactional database layer, or both.  Other middleware may require being placed at the beginning or end of the stack, e.g. GZip compression or profiling.
+
+Currently there is no way for middleware developers to declare these dependancies anywhere but their documentation, which can lead to developer frustration as they work out the kinks in a middleware stack.
+
+@Pulp-Dependancy@ is a module which provides a global registry for both entry-point and manually attached middleware objects.  Additionally, @Pulp-Dependancy@ monitors for new and updated entry-point middleware and can automatically reload individual middleware when changes are detected.
+
+h2. WebCore Example Application WSGI Dependancies
+
+!http://github.com/GothAlice/Pulp-Dependancy/raw/master/docs/example.png(WSGI middleware dependancy graph.)!
+
